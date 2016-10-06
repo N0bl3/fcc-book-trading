@@ -22,7 +22,6 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('disconnected', () => {
   debugDB('Mongoose default connection disconnected');
 });
-
 require('./config/passport')(passport);
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
