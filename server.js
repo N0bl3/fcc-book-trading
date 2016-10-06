@@ -2,6 +2,7 @@ const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const debug = require('debug');
 const debugDB = debug('database');
+const debugPP = debug('passport');
 const express = require('express');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
@@ -22,26 +23,46 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('disconnected', () => {
   debugDB('Mongoose default connection disconnected');
 });
-require('./config/passport')(passport);
+
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
 app.use(cookieParser());
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(flash());
+app.use(session({secret: 'meow', name: 'fcc-book-trade', resave: true, saveUninitialized: false})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
+require('./config/passport')(passport);
 
 app.get("/", routes.index);
 app.get("/book", routes.book);
 app.get("/profile", routes.profile);
-app.post("/login", passport.authenticate('local-login', {
+app.post("/login", (req, res, next) => {
+  if( !req.body.username || !req.body.password ){
+    debugPP('Missing field(s)');
+    req.flash('authMessage', 'Missing field(s)');
+    res.redirect("/");
+  } else {
+    next();
+  }
+}, passport.authenticate('local-login', {
   successRedirect: "/profile",
   failureRedirect: "/",
   failureFlash: true
 }));
-app.post("/register", passport.authenticate('local-register', {
+app.post("/register", (req, res, next) => {
+  if( !req.body.username || !req.body.password ){
+    debugPP('Missing field(s)');
+    req.flash('authMessage', 'Missing field(s)');
+    res.redirect("/");
+  } else {
+    next();
+  }
+}, passport.authenticate('local-register', {
   successRedirect: "/profile",
   failureRedirect: "/",
   failureFlash: true

@@ -37,7 +37,7 @@ mixin main_navbar
             li
                 form(action="/login" method="POST")
                     div.form-group
-                        label(for="username") Username
+                        label(for="username") E-mail
                         input.form-control(type="text" name="username")
                     div.form-group
                         label(for="password") Password
@@ -46,14 +46,11 @@ mixin main_navbar
             li
                 form(action="/register" method="POST")
                     div.form-group
-                        label(for="username") Username
-                        input.form-control(type="text" name="username")
+                        label(for="email") E-mail
+                        input.form-control(type="email" name="email")
                     div.form-group
                         label(for="password") Password
                         input.form-control(type="password" name="password")
-                    div.form-group
-                        label(for="email") E-mail
-                        input.form-control(type="email" name="email")
                     button.btn.btn-default(type="submit" name="submit") Register
 doctype html
 html
@@ -67,7 +64,7 @@ html
         div.container
             block content
                 h1 All Books for non auth user
-                if message != ""
+                if message
                     div.alert.alert-danger= message
                 if books
                     each book in books
