@@ -7,8 +7,9 @@ const userSchema = new Schema({
   local: {
     name: String,
     username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    admin: Boolean,
+    admin: { type: Boolean, default: false },
     city: String,
     state: String,
     books: [Book],

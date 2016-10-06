@@ -31,17 +31,51 @@ mixin nav_header
     li.dropdown-header
         block
 
+mixin main_navbar
+    +nav("Bookworms", "menu", "inverse")
+        +nav_item_dropdown("#")(label="Login/Register")
+            li
+                form(action="/login" method="POST")
+                    div.form-group
+                        label(for="username") Username
+                        input.form-control(type="text" name="username")
+                    div.form-group
+                        label(for="password") Password
+                        input.form-control(type="password" name="password")
+                    button.btn.btn-default(type="submit" name="submit") Log In
+            li
+                form(action="/register" method="POST")
+                    div.form-group
+                        label(for="username") Username
+                        input.form-control(type="text" name="username")
+                    div.form-group
+                        label(for="password") Password
+                        input.form-control(type="password" name="password")
+                    div.form-group
+                        label(for="email") E-mail
+                        input.form-control(type="email" name="email")
+                    button.btn.btn-default(type="submit" name="submit") Register
 doctype html
 html
     head
         meta( charset='utf-8' )
         meta( http-equiv='X-UA-Compatible', content='IE=edge' )
         meta( name='viewport', content='width=device-width, initial-scale=1.0' )
-        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
         link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
     body
-        +nav("Bookworms", "menu", "inverse")
-            +nav_item_dropdown("#")(label="Login/Register")
-        h1 Hello world
+        +main_navbar
+        div.container
+            block content
+                h1 All Books for non auth user
+                if message
+                    div.alert.alert-danger message
+                if books
+                    each book in books
+                        div.book
+                            h1= book.title
+                            h2= book.owner
+                else
+                    p No books to show for now
+
         script(src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")

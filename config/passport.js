@@ -39,18 +39,20 @@ module.exports = (passport) => {
   passport.use('local-login', new LocalStrategy({
     passReqToCallback: true
   }, (req, username, password, done) => {
+    console.log("logging");
     process.nextTick(() => {
       User.findOne({ 'local.username': username }, (err, user) => {
         if (err) {
           return done(err);
         } else if (user) {
           if (!user.validPassword(password)) {
-            return done(null, false, req.flash('loginMessage', 'Bad password'));
+            console.log("pw miss");
+            return done(null, false, req.flash('authMessage', 'Bad password'));
           } else {
             return done(null, user);
           }
         } else {
-          return done(null, false, req.flash('loginMessage', 'That username is unknown'));
+          return done(null, false, req.flash('authMessage', 'That username is unknown'));
         }
       });
     });
