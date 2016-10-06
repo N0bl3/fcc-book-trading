@@ -67,8 +67,8 @@ html
         div.container
             block content
                 h1 All Books for non auth user
-                if message
-                    div.alert.alert-danger message
+                if message != ""
+                    div.alert.alert-danger= message
                 if books
                     each book in books
                         div.book

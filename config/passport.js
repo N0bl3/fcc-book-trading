@@ -12,8 +12,11 @@ module.exports = (passport) => {
   });
 
   passport.use('local-register', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
     passReqToCallback: true
   }, (req, username, password, done) => {
+    console.log("r");
     process.nextTick(() => {
       User.findOne({ 'local.username': username }, (err, user) => {
         if (err) {
@@ -37,21 +40,27 @@ module.exports = (passport) => {
   }));
 
   passport.use('local-login', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
     passReqToCallback: true
   }, (req, username, password, done) => {
     console.log("logging");
     process.nextTick(() => {
       User.findOne({ 'local.username': username }, (err, user) => {
+        console.log("f");
         if (err) {
+          console.error(err);
           return done(err);
         } else if (user) {
           if (!user.validPassword(password)) {
             console.log("pw miss");
             return done(null, false, req.flash('authMessage', 'Bad password'));
           } else {
+            console.log("usr");
             return done(null, user);
           }
         } else {
+          console.log("usruk");
           return done(null, false, req.flash('authMessage', 'That username is unknown'));
         }
       });

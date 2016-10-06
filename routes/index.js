@@ -1,3 +1,4 @@
 module.exports = function (req, res) {
-  res.render('index.pug', {books: undefined});
+  console.log(req.flash('authMessage'));
+  res.render('index.pug', {books: undefined, message: req.flash('authMessage')});
 };

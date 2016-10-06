@@ -26,8 +26,7 @@ mongoose.connection.on('disconnected', () => {
 require('./config/passport')(passport);
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
-app.use(bodyParser.json);
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser());
 app.use(cookieParser());
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
