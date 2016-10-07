@@ -1,3 +1,4 @@
 module.exports = function (req, res) {
-  res.sendStatus(501);
+  res.logout();
+  res.redirect("/");
 };

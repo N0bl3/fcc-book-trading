@@ -1,3 +1,8 @@
+
 module.exports = function (req, res) {
-  res.sendStatus(501);
+  if(req.isAuthenticated()){
+    res.render('profile.pug', {user: req.user});
+  } else {
+    res.redirect("/");
+  }
 };

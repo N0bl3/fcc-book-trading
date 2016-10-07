@@ -8,10 +8,9 @@ const userSchema = new Schema({
     name: String,
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    admin: Boolean,
+    admin: { type: Boolean, default: false },
     city: String,
     state: String,
-    books: [Book],
     created_at: { type: Date, default: Date.now() },
     modified_at: Date
   }, facebook: {

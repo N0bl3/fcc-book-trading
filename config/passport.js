@@ -10,7 +10,6 @@ module.exports = (passport) => {
       done(err, user);
     });
   });
-
   passport.use('local-register', new LocalStrategy({
     passReqToCallback: true
   }, (req, username, password, done) => {
@@ -19,7 +18,7 @@ module.exports = (passport) => {
         if (err) {
           return done(err);
         } else if (user) {
-          return done(null, false, req.flash('registerMessage', 'That username is already taken.'));
+          return done(null, false, req.flash('authMessage', 'Username already taken'));
         } else {
           var newUser = new User();
           newUser.local.username = username;
@@ -45,14 +44,15 @@ module.exports = (passport) => {
           return done(err);
         } else if (user) {
           if (!user.validPassword(password)) {
-            return done(null, false, req.flash('loginMessage', 'Bad password'));
+            return done(null, false, req.flash('authMessage', 'Bad password'));
           } else {
             return done(null, user);
           }
         } else {
-          return done(null, false, req.flash('loginMessage', 'That username is unknown'));
+          return done(null, false, req.flash('authMessage', 'Username unknown'));
         }
       });
     });
   }));
+
 };
