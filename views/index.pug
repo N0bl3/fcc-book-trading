@@ -1,7 +1,10 @@
 extends layout
 block content
-    h1 All Books for non auth user
-    if message.length
+    if !user
+        h1 All Books for non auth user
+    else
+        h1 All Books for auth'ed user
+    if message && message.length
         div.alert.alert-danger= message
     if books
         each book in books

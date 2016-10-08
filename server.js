@@ -1,5 +1,5 @@
 /**
- * @todo Registering is ok Now we should be able to implement login
+ * @todo Implement facebook & google+ login
  */
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -44,37 +44,17 @@ require('./config/passport')(passport);
 app.get("/", routes.index);
 app.get("/book", routes.book);
 app.get("/profile", routes.profile);
-app.post("/login", (req, res, next) => {
-  debugPP("username " + req.body.username);
-  debugPP("pass " + req.body.password ? true : false);
-  if( !req.body.username || !req.body.password ){
-    debugPP('Missing field(s)');
-    req.flash('authMessage', 'Missing field(s)');
-    res.redirect("/");
-  } else {
-    next();
-  }
-}, passport.authenticate('local-login', {
+app.post("/login", routes.login, passport.authenticate('local-login', {
   successRedirect: "/profile",
   failureRedirect: "/",
   failureFlash: true
 }));
-app.post("/register", (req, res, next) => {
-  debugPP("username " + req.body.username);
-  debugPP("pass " + req.body.password ? true : false);
-  if( !req.body.username || !req.body.password ){
-    debugPP('Missing field(s)');
-    req.flash('authMessage', 'Missing field(s)');
-    res.redirect("/");
-  } else {
-    next();
-  }
-}, passport.authenticate('local-register', {
+app.post("/register", passport.authenticate('local-register', {
   successRedirect: "/profile",
   failureRedirect: "/",
   failureFlash: true
 }));
-app.post("/logout", routes.logout);
+app.get("/logout", routes.logout);
 
 app.listen(port, function () {
   console.log('Your app is listening on port ' + port );

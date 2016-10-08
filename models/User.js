@@ -30,7 +30,9 @@ userSchema.pre('save', function (next) {
 userSchema.methods.generateHash =
   (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 
-userSchema.methods.validPassword = (password) => bcrypt.compareSync(password, this.local.password);
+userSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.local.password);
+};
 
 const User = mongoose.model('User', userSchema);
 
