@@ -10,6 +10,10 @@ module.exports = function (req, res) {
   });*/
   Book.find({sold: false}, (err, books) => {
     if (err) throw err;
-    res.render('index.pug', {books, message:  req.flash('authMessage')});
+    if(req.isAuthenticated()){
+      res.render('index.pug', {books, user: req.user});
+    } else {
+      res.render('index.pug', {books, message:  req.flash('authMessage')});
+    }
   });
 };
