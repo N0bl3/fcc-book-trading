@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const Book = require('./Book').schema;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -12,7 +12,7 @@ const userSchema = new Schema({
     city: String,
     state: String,
     created_at: { type: Date, default: Date.now() },
-    modified_at: Date
+    modified_at: { type: Date, default: Date.now() }
   }, facebook: {
     id: String, token: String, email: String, name: String
   }, twitter: {
