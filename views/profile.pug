@@ -1,3 +1,10 @@
-extends layout
+extends layout.pug
+
 block content
-    h1= user.username
+    p #[img]#{user.local.username}
+    p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.local.created_at + ". And modified on " + user.local.modified_at
+    button#modify-profile Modify
+    button#delete-profile Delete profile
+    
+block scripts
+    script(src="../public/profile.js")

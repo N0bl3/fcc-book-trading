@@ -1,5 +1,11 @@
 /**
  * @todo Implement facebook & google+ login
+ * @todo Transform POST login in GET login
+ * @todo should delete profile be a delete?
+ * @todo better describe through URI
+ * @todo /profile should be /profile/id
+ * @todo idem for books
+ * @todo so that we can explicitly DELETE and PUT / PATCH
  */
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
