@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  local: {
-    name: String,
+  books: [{ type: Schema.Types.ObjectId, ref: 'Book' }], local: {
+    displayName: String,
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     admin: { type: Boolean, default: false },
-    banned: {type: Boolean, default: false},
+    banned: { type: Boolean, default: false },
     city: String,
     state: String,
     created_at: { type: Date, default: Date.now() },
@@ -28,10 +28,9 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.methods.generateHash =
-  (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+userSchema.methods.generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 
-userSchema.methods.validPassword = function(password) {
+userSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.local.password);
 };
 

@@ -8,7 +8,6 @@ const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const debug = require('debug');
 const debugDB = debug('database');
-const debugPP = debug('passport');
 const express = require('express');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
@@ -31,7 +30,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 app.set('views', __dirname + '/views');
-app.use(express.static('public'));
+app.use(express.static('public/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,

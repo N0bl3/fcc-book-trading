@@ -1,3 +1,17 @@
+mixin modal(title,id)
+    .modal.fade(id=id,tabindex="-1",role="dialog",aria-labelledby=id+"Label" aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type="button",data-dismiss="modal")
+                        span(aria-hidden="true") &times;
+                        span.sr-only Close
+                    h4.modal-title(id=id+"Label")= title
+                .modal-body
+                    block
+                .modal-footer
+
+
 mixin nav(name, id, style)
     - var style = (typeof style === 'undefined') ? "default" : style
     nav( role="navigation", class=["navbar", "navbar-" + style] )
@@ -53,6 +67,7 @@ mixin main_navbar
                             input.form-control(type="password" name="password")
                         button.btn.btn-default(type="submit" name="submit") Register
         else
+            +nav_item("/profile") Me
             +nav_item("/logout") Logout
 
 doctype html
@@ -67,6 +82,6 @@ html
         +main_navbar
         div.container
             block content
-        block scripts
         script(src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+        block scripts

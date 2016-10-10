@@ -1,10 +1,48 @@
 extends layout.pug
 
 block content
+    h1 Local
     p #[img]#{user.local.username}
     p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.local.created_at + ". And modified on " + user.local.modified_at
-    button#modify-profile Modify
-    button#delete-profile Delete profile
-    
+    button.btn.btn-warning#modify-profile(type="button" data-toggle="modal" data-target="#modify-profile-modal") Modify
+    +modal("Modify your profile", "modify-profile-modal")
+        form(action="#")
+            label(for="displayed-name") Username *
+            input.form-control#displayed-name(type="text" name="displayed-name" required)
+            label(for="city") City
+            input.form-control#city(type="text" name="city")
+            label(for="state") State/Region
+            input.form-control#state(type="text" name="state")
+            button.btn.btn-default(type="submit") Submit
+            button.btn.btn-default(type="button",data-dismiss="modal") Close
+    a.btn.btn-danger#delete-profile Delete profile
+
+    h1 Facebook
+    p= user.facebook
+    button.btn.btn-success#fb-connect Connect
+    button.btn.btn-warning#fb-disconnect Disconnect
+
+    h1 Google+
+    p= user.google
+    button.btn.btn-success#google-connect Connect
+    button.btn.btn-warning#google-disconnect Disconnect
+
+    h1 My books
+    button.btn.btn-success#add-book(type="button" data-toggle="modal" data-target="#add-book-modal") Add
+    +modal("Add a book", "add-book-modal")
+        form(action="/book" method="POST")
+            label(for="title") Title *
+            input.form-control#title(type="text" name="title" required)
+            label(for="author") Author *
+            input.form-control#author(type="text" name="author" required)
+            label(for="genre") Genre
+            input.form-control#genre(type="text" name="genre")
+            button.btn.btn-default(type="submit") Submit
+            button.btn.btn-default(type="button",data-dismiss="modal") Close
+    each book in user.books
+        .well.well-lg
+            p= book.title + " " + book.author
+            button.btn.btn-danger DELETE
+
 block scripts
-    script(src="../public/profile.js")
+    script(src="profile.js")
