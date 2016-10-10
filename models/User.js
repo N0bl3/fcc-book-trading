@@ -9,6 +9,7 @@ const userSchema = new Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     admin: { type: Boolean, default: false },
+    banned: {type: Boolean, default: false},
     city: String,
     state: String,
     created_at: { type: Date, default: Date.now() },

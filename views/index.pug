@@ -1,4 +1,4 @@
-extends layout
+extends layout.pug
 block content
     if !user
         h1 All Books for non auth user
@@ -8,8 +8,6 @@ block content
         div.alert.alert-danger= message
     if books
         each book in books
-            div.book
-                h1= book.title
-                h2= book.owner
+            include book.pug
     else
         p No books to show for now
