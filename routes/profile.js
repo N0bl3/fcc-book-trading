@@ -1,7 +1,9 @@
 
 module.exports = function (req, res) {
   if(req.isAuthenticated()){
-    res.render('profile.pug', {user: req.user});
+    const user = req.user;
+    
+    res.render('profile.pug', {user});
   } else {
     res.redirect("/");
   }

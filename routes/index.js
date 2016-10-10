@@ -8,12 +8,12 @@ module.exports = function (req, res) {
       throw err;
     }
   });*/
-  Book.find({sold: false}, (err, books) => {
+  Book.find({hidden: false}, (err, books) => {
     if (err) throw err;
     if(req.isAuthenticated()){
       res.render('index.pug', {books, user: req.user});
     } else {
-      res.render('index.pug', {books, message:  req.flash('authMessage')});
+      res.render('index.pug', {books, message: req.flash('authMessage')});
     }
   });
 };

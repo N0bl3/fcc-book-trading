@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
   title: {type: String, required: true},
-  owner: String,
+  author: {type: String, required: true},
+  owners: [{type: String, ref:'User'}],
   genre: String,
-  sold: {type: Boolean, default: false}
+  hidden: {type: Boolean, default: false}
 });
 const Book = mongoose.model('Book', bookSchema);
 

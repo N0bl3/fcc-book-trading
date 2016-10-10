@@ -1,11 +1,8 @@
 /**
  * @todo Implement facebook & google+ login
- * @todo Transform POST login in GET login
- * @todo should delete profile be a delete?
- * @todo better describe through URI
- * @todo /profile should be /profile/id
- * @todo idem for books
- * @todo so that we can explicitly DELETE and PUT / PATCH
+ * @todo /profile should be /me ou /profile/id
+ * @todo we should be able to delete a profile => priority
+ * @todo we should be able to give a profile admin rights
  */
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -48,7 +45,8 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.get("/", routes.index);
-app.get("/book", routes.book);
+app.post("/book", routes.postBook);
+app.get("/book", routes.getBook);
 app.get("/profile", routes.profile);
 app.post("/login", routes.login, passport.authenticate('local-login', {
   successRedirect: "/profile",
@@ -61,7 +59,8 @@ app.post("/register", passport.authenticate('local-register', {
   failureFlash: true
 }));
 app.get("/logout", routes.logout);
-
+app.get("/delete", routes.deleteProfile);
+app.delete("/user/:username/:password", routes.del);
 app.listen(port, function () {
   console.log('Your app is listening on port ' + port );
 });
