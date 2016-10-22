@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt-nodejs');
 const Book = require('./Book').schema;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 const userSchema = new Schema({
   local: {
     displayName: String,

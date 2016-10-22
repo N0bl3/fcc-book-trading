@@ -1,9 +1,10 @@
 /**
  * @todo Implement facebook & google+ login
  * @todo /profile should be /me ou /profile/id
- * @todo we should be able to delete a profile => priority
- * @todo we should be able to delete a book
- * @todo we should be able to give a profile admin rights
+ * @todo We should be able to give a profile admin rights
+ * @todo Implement "I'm interested"
+ * @todo Then implement messaging on the book page?
+ * @todo Show all books from a user so that he can know if interested in exchange
  */
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -59,9 +60,8 @@ app.post("/register", passport.authenticate('local-register', {
   failureFlash: true
 }));
 app.get("/logout", routes.logout);
-app.get("/delete", routes.deleteProfile);
+app.delete("/profile", routes.deleteProfile);
 app.delete("/book/:id", routes.deleteBook);
-app.delete("/user/:username/:password", routes.del);
 app.listen(port, function () {
   console.log('Your app is listening on port ' + port );
 });
