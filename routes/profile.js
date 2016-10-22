@@ -1,16 +1,16 @@
+const Book = require('../models/Book').model;
 const User = require('../models/User');
 
 module.exports = function (req, res) {
   if(req.isAuthenticated()){
     const user = req.user;
-    User.findOne({'local.username': user.local.username}).populate('books', 'title author').exec((err, user) => {
-      if(err){
-        console.error(err);
-        res.sendStatus(500);
-      }
-      res.render('profile.pug', {user});
-    });
-
+      Book.find({owner: user._id}, (err, books) => {
+        if(err){
+          res.sendStatus(500);
+        }
+        user.books = books;
+        res.render('profile.pug', {user});
+      });
   } else {
     res.redirect("/");
   }

@@ -2,6 +2,7 @@
  * @todo Implement facebook & google+ login
  * @todo /profile should be /me ou /profile/id
  * @todo we should be able to delete a profile => priority
+ * @todo we should be able to delete a book
  * @todo we should be able to give a profile admin rights
  */
 const bodyParser   = require('body-parser');
@@ -59,6 +60,7 @@ app.post("/register", passport.authenticate('local-register', {
 }));
 app.get("/logout", routes.logout);
 app.get("/delete", routes.deleteProfile);
+app.delete("/book/:id", routes.deleteBook);
 app.delete("/user/:username/:password", routes.del);
 app.listen(port, function () {
   console.log('Your app is listening on port ' + port );

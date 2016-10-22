@@ -6,6 +6,16 @@ $(function (){
         alert("Disconnect FB");
     });
     $("#google-disconnect").click(function(){
-        alert("Disconnect Goolgle");
+        alert("Disconnect Google");
+    });
+    $(".delete-book").click(function () {
+        $.ajax({
+            method: "DELETE",
+            url: "/book/" + $(this).data("id")
+        }).done(function () {
+            window.location.reload(true);
+        }).fail(function(xhr, textStatus){
+            alert(textStatus);
+        });
     });
 });

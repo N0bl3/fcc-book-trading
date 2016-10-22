@@ -42,7 +42,7 @@ block content
     each book in user.books
         .well.well-lg
             p= book.title + " " + book.author
-            button.btn.btn-danger DELETE
+            button.delete-book.btn.btn-danger(data-id=book._id) DELETE
 
 block scripts
     script(src="profile.js")

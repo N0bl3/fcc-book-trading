@@ -8,7 +8,12 @@ block content
         div.alert.alert-danger= message
     if books
         each book in books
-            include book.pug
+            div.book
+                h1= book.title
+                h2= book.author
+                p= "Owner : [" + book.owner + "]"
+                p= "Genre : " + book.genre
+                button.btn.btn-success I want this
     else
         p No books to show for now
 
