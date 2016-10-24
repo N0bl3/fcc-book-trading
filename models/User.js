@@ -1,10 +1,9 @@
 const bcrypt = require('bcrypt-nodejs');
-const Book = require('./Book').schema;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
   local: {
-    displayName: String,
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     admin: { type: Boolean, default: false },
@@ -15,8 +14,6 @@ const userSchema = new Schema({
     modified_at: { type: Date, default: Date.now() }
   }, facebook: {
     id: String, token: String, email: String, name: String
-  }, twitter: {
-    id: String, token: String, displayName: String, username: String
   }, google: {
     id: String, token: String, email: String, name: String
   }

@@ -30,6 +30,6 @@ module.exports = function (req, res) {
     }
 
   } else {
-    res.sendStatus(401);
+    res.sendStatus(403);
   }
 };
