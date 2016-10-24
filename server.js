@@ -47,7 +47,7 @@ require('./config/passport')(passport);
 
 app.get("/", routes.index);
 app.post("/book", routes.postBook);
-app.get("/book", routes.getBook);
+app.get("/book/:id", routes.getBook);
 app.get("/profile", routes.profile);
 app.post("/profile", routes.modifyProfile);
 app.post("/login", routes.login, passport.authenticate('local-login', {

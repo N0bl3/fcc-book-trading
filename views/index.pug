@@ -14,6 +14,7 @@ block content
                 p= "Owner : [" + book.owner + "]"
                 p= "Genre : " + book.genre
                 button.btn.btn-success I want this
+                a.btn.btn-warning(href="/book/" + book._id) Details
     else
         p No books to show for now
 
