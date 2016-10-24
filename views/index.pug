@@ -13,7 +13,14 @@ block content
                 h2= book.author
                 p= "Owner : [" + book.owner + "]"
                 p= "Genre : " + book.genre
-                button.btn.btn-success I want this
+                if user
+                    p= book.wanted
+                    if book.wanted
+                        button.btn.btn-success.disabled.wanted(data-id=book._id) Wanted
+                    else
+                        button.btn.btn-success.not-wanted(data-id=book._id) Want this?
+                else
+                    button.btn.btn-success(data-id=book._id) Want this?
                 a.btn.btn-warning(href="/book/" + book._id) Details
     else
         p No books to show for now

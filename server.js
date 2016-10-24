@@ -63,6 +63,8 @@ app.post("/register", passport.authenticate('local-register', {
 app.get("/logout", routes.logout);
 app.delete("/profile", routes.deleteProfile);
 app.delete("/book/:id", routes.deleteBook);
+app.post("/wanted/:id", routes.postWanted);
+app.delete("/wanted/:id", routes.deleteWanted);
 app.listen(port, function () {
   console.log('Your app is listening on port ' + port );
 });

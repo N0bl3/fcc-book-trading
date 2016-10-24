@@ -3,20 +3,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  banned: { type: Boolean, default: false },
+  admin: { type: Boolean, default: false },
   local: {
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    admin: { type: Boolean, default: false },
-    banned: { type: Boolean, default: false },
     city: String,
     state: String,
-    created_at: { type: Date, default: Date.now() },
-    modified_at: { type: Date, default: Date.now() }
   }, facebook: {
     id: String, token: String, email: String, name: String
   }, google: {
     id: String, token: String, email: String, name: String
-  }
+  },
+  wanted: { type: [Schema.Types.ObjectId], ref: 'Book' },
+  created_at: { type: Date, default: Date.now() },
+  modified_at: { type: Date, default: Date.now() }
 });
 
 userSchema.pre('save', function (next) {
