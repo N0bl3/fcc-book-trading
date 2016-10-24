@@ -6,9 +6,7 @@ block content
     p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.local.created_at + ". And modified on " + user.local.modified_at
     button.btn.btn-warning#modify-profile(type="button" data-toggle="modal" data-target="#modify-profile-modal") Modify
     +modal("Modify your profile", "modify-profile-modal")
-        form(action="#")
-            label(for="displayed-name") Username *
-            input.form-control#displayed-name(type="text" name="displayed-name" required)
+        form(action="/profile" method="POST")
             label(for="city") City
             input.form-control#city(type="text" name="city")
             label(for="state") State/Region
