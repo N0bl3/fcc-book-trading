@@ -1,3 +1,3 @@
-$(function() {
-  console.log('hello world :o');
+$(function(){
+    console.log('hello world :o');
 });

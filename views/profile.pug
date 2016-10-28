@@ -1,9 +1,15 @@
 extends layout.pug
 
 block content
+    h1 Book request
+    p Message
+
+    h1 Your requests
+    p List
+
     h1 Local
     p #[img]#{user.local.username}
-    p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.local.created_at + ". And modified on " + user.local.modified_at
+    p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.created_at + ". And modified on " + user.modified_at
     button.btn.btn-warning#modify-profile(type="button" data-toggle="modal" data-target="#modify-profile-modal") Modify
     +modal("Modify your profile", "modify-profile-modal")
         form(action="/profile" method="POST")

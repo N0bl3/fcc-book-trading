@@ -1,0 +1,10 @@
+.footer {
+    margin-top       : 50px;
+    border-top       : solid 1px black;
+    background-color : black;
+}
+
+.footer > div > a {
+    color           : #9D9D9D;
+    text-decoration : none;
+}

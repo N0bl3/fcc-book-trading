@@ -1,26 +1,22 @@
 extends layout.pug
 block content
-    if !user
-        h1 All Books for non auth user
-    else
-        h1 All Books for auth'ed user
+    h2 All books
     if message && message.length
         div.alert.alert-danger= message
     if books
         each book in books
-            div.book
+            .book.well.col-xs-4
                 h1= book.title
                 h2= book.author
                 p= "Owner : [" + book.owner + "]"
                 p= "Genre : " + book.genre
-                if user
-                    p= book.wanted
+                if user && book.owner !== user._id
                     if book.wanted
                         button.btn.btn-success.disabled.wanted(data-id=book._id) Wanted
                     else
                         button.btn.btn-success.not-wanted(data-id=book._id) Want this?
                 else
-                    button.btn.btn-success(data-id=book._id) Want this?
+                    button.btn.btn-success(data-id=book._id) Want this? - Login
                 a.btn.btn-warning(href="/book/" + book._id) Details
     else
         p No books to show for now
