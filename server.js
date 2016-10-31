@@ -19,7 +19,7 @@ const session      = require('express-session');
 
 const port = process.env.PORT || 8080;
 const app  = express();
-
+debug('server')('starting');
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('connected', () =>{
     debugDB('Connection established to MongoDB');
@@ -51,25 +51,27 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.get('/', routes.index);
-app.post('/book', routes.postBook);
-app.get('/book/:id', routes.getBook);
-app.get('/profile', routes.profile);
-app.post('/profile', routes.modifyProfile);
 app.post('/login', routes.login, passport.authenticate('local-login', {
-    successRedirect: '/profile',
+    successRedirect: '/users/me',
     failureRedirect: '/',
-    failureFlash   : true
+    failureFlash: true
 }));
 app.post('/register', passport.authenticate('local-register', {
-    successRedirect: '/profile',
+    successRedirect: '/users/me',
     failureRedirect: '/',
-    failureFlash   : true
+    failureFlash: true
 }));
 app.get('/logout', routes.logout);
-app.delete('/profile', routes.deleteProfile);
-app.delete('/book/:id', routes.deleteBook);
-app.post('/wanted/:id', routes.postWanted);
-app.delete('/wanted/:id', routes.deleteWanted);
+
+app.post('/books', routes.postBook); // Add a book to the collection
+app.get('/books/:id', routes.getBook); // Shows the book
+app.delete('/books/:id', routes.deleteBook); // Removes the book
+app.get('/users/me', routes.profile); // Shows the current user
+app.put('/users/me', routes.updateProfile); // Updates the current user
+app.put('/users/:id/wanted/:book', routes.putWanted); // Add the book to the list of wanted books
+app.delete('/users/:id/wanted/:book', routes.deleteWanted); // Remove the book from the list of wanted books
+app.delete('/users/me', routes.deleteProfile); // Deletes the current user
+
 app.listen(port, function(){
     console.log('Your app is listening on port ' + port);
 });

@@ -5,7 +5,7 @@ module.exports = (req, res) =>{
         const user = req.user;
         User.findByIdAndUpdate(user._id, {
             $pull: {
-                wanted: req.params.id
+                wanted: req.params.book
             }
         }, (err) =>{
             if ( err ) {

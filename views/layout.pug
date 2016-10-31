@@ -68,7 +68,7 @@ mixin main_navbar
                             input.form-control(type="password" name="password")
                         button.btn.btn-default(type="submit" name="submit") Register
         else
-            +nav_item("/profile") Me
+            +nav_item("/users/me") Me
             +nav_item("/logout") Logout
 
 doctype html

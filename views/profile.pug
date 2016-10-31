@@ -12,7 +12,7 @@ block content
     p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.created_at + ". And modified on " + user.modified_at
     button.btn.btn-warning#modify-profile(type="button" data-toggle="modal" data-target="#modify-profile-modal") Modify
     +modal("Modify your profile", "modify-profile-modal")
-        form(action="/profile" method="POST")
+        form#update-profile
             label(for="city") City
             input.form-control#city(type="text" name="city")
             label(for="state") State/Region
@@ -34,7 +34,7 @@ block content
     h1 My books
     button.btn.btn-success#add-book(type="button" data-toggle="modal" data-target="#add-book-modal") Add
     +modal("Add a book", "add-book-modal")
-        form(action="/book" method="POST")
+        form(action="/books" method="POST")
             label(for="title") Title *
             input.form-control#title(type="text" name="title" required)
             label(for="author") Author *

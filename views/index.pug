@@ -12,12 +12,12 @@ block content
                 p= "Genre : " + book.genre
                 if user && book.owner !== user._id
                     if book.wanted
-                        button.btn.btn-success.disabled.wanted(data-id=book._id) Wanted
+                        button.btn.btn-success.disabled.wanted(data-book=book._id data-user=user._id) Wanted
                     else
-                        button.btn.btn-success.not-wanted(data-id=book._id) Want this?
+                        button.btn.btn-success.not-wanted(data-book=book._id data-user=user._id) Want this?
                 else
                     button.btn.btn-success(data-id=book._id) Want this? - Login
-                a.btn.btn-warning(href="/book/" + book._id) Details
+                a.btn.btn-warning(href="/books/" + book._id) Details
     else
         p No books to show for now
 

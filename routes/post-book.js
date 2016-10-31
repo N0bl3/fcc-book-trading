@@ -19,7 +19,7 @@ module.exports = function(req, res){
                         if ( err ) {
                             res.sendStatus(500);
                         }
-                        res.redirect('/profile');
+                        res.redirect('/me');
                     });
                 } else {
                     res.sendStatus(500);

@@ -18,6 +18,10 @@ const bookSchema = new Schema({
     hidden: {
         type   : Boolean,
         default: false
+    },
+    created_at: {
+        type: Date,
+        default: Date.now()
     }
 });
 const Book       = mongoose.model('Book', bookSchema);
