@@ -10,11 +10,13 @@ block content
                 h2= book.author
                 p= "Owner : [" + book.owner + "]"
                 p= "Genre : " + book.genre
-                if user && book.owner !== user._id
+                if user && book.owner.equals(user._id)
+                    button.btn.disabled Yours
+                else if user
                     if book.wanted
-                        button.btn.btn-success.disabled.wanted(data-book=book._id data-user=user._id) Wanted
+                        button.btn.btn-success.disabled.wanted(data-book=book._id) Wanted
                     else
-                        button.btn.btn-success.not-wanted(data-book=book._id data-user=user._id) Want this?
+                        button.btn.btn-success.not-wanted(data-book=book._id) Want this?
                 else
                     button.btn.btn-success(data-id=book._id) Want this? - Login
                 a.btn.btn-warning(href="/books/" + book._id) Details

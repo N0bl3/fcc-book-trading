@@ -10,7 +10,7 @@ module.exports = (res, req) => {
             }
         }, (err)=> {
             if (err) {
-                res.send(500);
+                res.sendStatus(500);
             } else {
                 res.end();
             }

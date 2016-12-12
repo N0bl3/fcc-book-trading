@@ -31,7 +31,7 @@ mongoose.connection.on('disconnected', () =>{
     debugDB('Mongoose default connection disconnected');
 });
 
-app.set('views', __dirname + '/views');
+app.set('views', `${__dirname}/views`);
 app.use(express.static('public/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -65,15 +65,17 @@ app.get('/logout', routes.logout);
 
 app.post('/books', routes.postBook); // Add a book to the collection
 app.get('/books/:id', routes.getBook); // Shows the book
+app.post('/books/:id/trade', routes.trade); // Modifies trade status
 app.delete('/books/:id', routes.deleteBook); // Removes the book
 app.get('/users/me', routes.profile); // Shows the current user
 app.put('/users/me', routes.updateProfile); // Updates the current user
-app.put('/users/:id/wanted/:book', routes.putWanted); // Add the book to the list of wanted books
-app.delete('/users/:id/wanted/:book', routes.deleteWanted); // Remove the book from the list of wanted books
+app.put('/users/me/wanted/:book', routes.putWanted); // Add the book to the list of wanted books
+app.delete('/users/me/wanted/:book', routes.deleteWanted); // Remove the book from the list of wanted
+// books
 app.delete('/users/me', routes.deleteProfile); // Deletes the current user
 
 app.listen(port, function(){
-    console.log('Your app is listening on port ' + port);
+    console.log(`Your app is listening on port ${port}`);
 });
 
 process.on('SIGINT', () =>{

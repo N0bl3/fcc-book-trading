@@ -47,7 +47,8 @@ const userSchema = new Schema({
     modified_at: {
         type   : Date,
         default: Date.now()
-    }
+    },
+    demands    : [{}]
 });
 
 userSchema.pre('save', function(next){

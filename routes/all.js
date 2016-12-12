@@ -10,9 +10,15 @@ const putWanted = require('./put-wanted');
 const register = require('./register');
 const updateProfile = require('./update-profile');
 const profile = require('./user');
-
+const trade = require('./trade');
 
 module.exports = {
     deleteBook, deleteProfile, deleteWanted, getBook, index, login,
-    logout, postBook, putWanted, register, updateProfile, profile
+    logout,
+    postBook,
+    putWanted,
+    register,
+    updateProfile,
+    profile,
+    trade
 };

@@ -3,24 +3,29 @@ $('body')
         var self = $(this);
         var bookId = $(this)
             .data('book');
-        var userId = $(this).data('user');
 
-        $.ajax({url: '/users/' + userId + '/wanted/' + bookId, method: 'PUT'})
+        $.ajax({
+            url   : '/users/me/wanted/' + bookId,
+            method: 'PUT',
+            data  : 'demand'
+        })
             .done(function () {
                 self.toggleClass('disabled');
-                self.toggleClass('wanted');
                 self.toggleClass('not-wanted');
+                self.toggleClass('wanted');
                 self.text('Wanted');
-            });
+            })
+        .fail(function(err){
+            console.error(err);
+        });
     })
     .on('click.wanted', '.wanted', function () {
         var self = $(this);
         var bookId = $(this)
             .data('book');
-        var userId = $(this).data('user');
 
         $.ajax({
-            url: '/users/' + userId + '/wanted/' + bookId,
+            url   : '/users/me/wanted/' + bookId,
             method: 'DELETE'
         })
             .done(function () {

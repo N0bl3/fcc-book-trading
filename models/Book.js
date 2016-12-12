@@ -22,8 +22,10 @@ const bookSchema = new Schema({
     created_at: {
         type: Date,
         default: Date.now()
-    }
+    },
+    tradeStep: Number
 });
+
 const Book       = mongoose.model('Book', bookSchema);
 
 module.exports = Book;
