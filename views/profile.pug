@@ -1,14 +1,41 @@
 extends layout.pug
 
 block content
+    .row
+        .col-xs-6.well.well-sm
+            h1 They want to taste your books
+            each demand in user.demands
+                p= JSON.stringify(demand.book)
+                p #{demand.author} wants #{demand.book.title}
+                if demand.book.tradeStep === 0
+                    button.btn.accept-trade(data-book=demand.book._id) DEV reset to 2
+                if demand.book.tradeStep === 1
+                    button.btn.accept-trade(data-book=demand.book._id) Accept
+                if demand.book.tradeStep === 2
+                    button.btn.send-trade(data-book=demand.book._id) Sent
+                button.btn.btn-danger.cancel-trade(data-book=demand.book._id) Cancel
+        .col-xs-6.well.well-sm
+            h1 You wish to get them
+            each book in user.wanted
+                p #{book.title} owned by #{book.owner}. Status:
+                    if book.tradeStep === 1
+                        span.success  Wait for contact...
+                    else if book.tradeStep === 2
+                        span.success  Accepted !!!
+                    else if book.tradeStep === 3
+                        span.success  Waiting for collection
+                        button.btn.receive-trade(data-book=book._id) Receive
+                    else if book.tradeStep === 4
+                        span.success  Traded
+                    else
+                        span.failure  Not available #{book.tradeStep}
+
     h1 Local
     p #[img]#{user.local.username}
-    p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.local.created_at + ". And modified on " + user.local.modified_at
+    p= (user.local.city ? user.local.city : "") + " " + (user.local.state ? user.local.state : "") + "created on " + user.created_at + ". And modified on " + user.modified_at
     button.btn.btn-warning#modify-profile(type="button" data-toggle="modal" data-target="#modify-profile-modal") Modify
     +modal("Modify your profile", "modify-profile-modal")
-        form(action="#")
-            label(for="displayed-name") Username *
-            input.form-control#displayed-name(type="text" name="displayed-name" required)
+        form#update-profile
             label(for="city") City
             input.form-control#city(type="text" name="city")
             label(for="state") State/Region
@@ -30,7 +57,7 @@ block content
     h1 My books
     button.btn.btn-success#add-book(type="button" data-toggle="modal" data-target="#add-book-modal") Add
     +modal("Add a book", "add-book-modal")
-        form(action="/book" method="POST")
+        form(action="/books" method="POST")
             label(for="title") Title *
             input.form-control#title(type="text" name="title" required)
             label(for="author") Author *
@@ -41,8 +68,9 @@ block content
             button.btn.btn-default(type="button",data-dismiss="modal") Close
     each book in user.books
         .well.well-lg
+            p= book
             p= book.title + " " + book.author
             button.delete-book.btn.btn-danger(data-id=book._id) DELETE
 
 block scripts
-    script(src="profile.js")
+    script(src="../profile.js")

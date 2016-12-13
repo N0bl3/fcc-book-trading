@@ -1,12 +1,12 @@
 mixin modal(title,id)
-    .modal.fade(id=id,tabindex="-1",role="dialog",aria-labelledby=id+"Label" aria-hidden="true")
+    .modal.fade(id=id,tabindex="-1",role="dialog",aria-labelledby=id + "Label" aria-hidden="true")
         .modal-dialog
             .modal-content
                 .modal-header
                     button.close(type="button",data-dismiss="modal")
                         span(aria-hidden="true") &times;
                         span.sr-only Close
-                    h4.modal-title(id=id+"Label")= title
+                    h4.modal-title(id=id + "Label")= title
                 .modal-body
                     block
                 .modal-footer
@@ -16,7 +16,8 @@ mixin nav(name, id, style)
     - var style = (typeof style === 'undefined') ? "default" : style
     nav( role="navigation", class=["navbar", "navbar-" + style] )
         .navbar-header
-            button.navbar-toggle.collapsed( type="button", data-toggle="collapse", data-target="#" + id, aria-expanded="false", aria-controls="navbar")
+            button.navbar-toggle.collapsed( type="button", data-toggle="collapse", data-target="#" +
+            id, aria-expanded="false", aria-controls="navbar")
                 span.sr-only Toggle navigation
                 span.icon-bar
                 span.icon-bar
@@ -31,9 +32,9 @@ mixin nav_item(href, active)
     li(class=active): a( href=href )
         block
 
-mixin nav_item_dropdown(href, active)
-    li(class=["dropdown", active])
-        a.dropdown-toggle( href=href, data-toggle="dropdown", role="button", aria-expanded="false" )= attributes.label
+mixin nav_item_dropdown(href, label)
+    li(class=["dropdown"])
+        a.dropdown-toggle( href=href, label=label, data-toggle="dropdown", role="button", aria-expanded="false" )= label
         ul.dropdown-menu( role="menu" )
             block
 
@@ -45,9 +46,9 @@ mixin nav_header
         block
 
 mixin main_navbar
-    +nav("Bookworms", "menu", "inverse")
+    +nav("Pickabook", "menu", "inverse")
         if !user
-            +nav_item_dropdown("#")(label="Login/Register")
+            +nav_item_dropdown("#", "Login/Register")
                 li
                     form(action="/login" method="POST")
                         div.form-group
@@ -67,7 +68,7 @@ mixin main_navbar
                             input.form-control(type="password" name="password")
                         button.btn.btn-default(type="submit" name="submit") Register
         else
-            +nav_item("/profile") Me
+            +nav_item("/users/me") Me
             +nav_item("/logout") Logout
 
 doctype html
@@ -78,10 +79,15 @@ html
         meta( http-equiv='X-UA-Compatible', content='IE=edge' )
         meta( name='viewport', content='width=device-width, initial-scale=1.0' )
         link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
-    body
+        link(href="/layout.css", rel="stylesheet")
+    body.container-fluid
         +main_navbar
-        div.container
+        div.container-fluid
             block content
+        footer.footer.container-fluid.text-center
+            div.col-xs-6
+            div.col-xs-6
+                a(href="https://github.com/N0bl3") GitHub : N0ble
         script(src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
         block scripts
