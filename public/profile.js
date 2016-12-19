@@ -32,7 +32,7 @@ $(function(){
         .done(function(){
             window.location.reload(true);
         })
-        .fail(/* @callback */ function(xhr, textStatus){
+        .fail(function(xhr, textStatus){
             alert(textStatus);
         });
     });
@@ -46,11 +46,13 @@ $(function(){
         formData.forEach(function(elem){
             data[elem.name] = elem.value;
         });
-
         $.ajax({
             url: '/users/me',
             method: 'PUT',
             data: data
+        })
+        .done(function(){
+            window.location.reload(true);
         });
     });
     $('.accept-trade')

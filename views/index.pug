@@ -1,25 +1,34 @@
 extends layout.pug
 block content
-    h2 All books
+    h2 Books available
     if message && message.length
         div.alert.alert-danger= message
+    .row
     if books
         each book in books
-            .book.well.col-xs-4
-                h1= book.title
-                h2= book.author
-                p= "Owner : [" + book.owner + "]"
-                p= "Genre : " + book.genre
-                if user && book.owner.equals(user._id)
-                    button.btn.disabled Yours
-                else if user
-                    if book.wanted
-                        button.btn.btn-success.disabled.wanted(data-book=book._id) Wanted
+            .book.col-xs-6.col-sm-4.col-md-3.col-lg-2
+                div.panel.panel-default
+                    h3 #{book.title}
+                    br
+                    h4 #{book.author}
+                    br
+                    |  #{book.genre || "Unknown"}
+                    br
+                    if user && book.owner.equals(user._id)
+                        button.btn.disabled Yours
+                    else if user
+                        if book.wanted
+                            button.btn.btn-success.disabled.wanted(data-book=book._id)
+                                i.fa.fa-check(aria-hidden="true")
+                                |  Wanted
+                        else
+                            button.btn.btn-success.not-wanted(data-book=book._id) Want this?
                     else
-                        button.btn.btn-success.not-wanted(data-book=book._id) Want this?
-                else
-                    button.btn.btn-success(data-id=book._id) Want this? - Login
-                a.btn.btn-warning(href="/books/" + book._id) Details
+                        button.btn.btn-success(data-id=book._id) Want this? - Login
+                    br
+                    a.btn.btn-warning(href="/books/" + book._id)
+                        i.fa.fa-clone(aria-hidden="true")
+                        |  Details
     else
         p No books to show for now
 

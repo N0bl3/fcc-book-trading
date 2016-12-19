@@ -1,7 +1,7 @@
 .footer {
     margin-top       : 50px;
-    border-top       : solid 1px black;
-    background-color : black;
+    border-top       : solid 1px;
+    background-color : inherit;
 }
 
 .footer > div > a {

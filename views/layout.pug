@@ -46,7 +46,7 @@ mixin nav_header
         block
 
 mixin main_navbar
-    +nav("Pickabook", "menu", "inverse")
+    +nav("Pickabook - Trade books with your neighbours", "menu")
         if !user
             +nav_item_dropdown("#", "Login/Register")
                 li
@@ -74,7 +74,7 @@ mixin main_navbar
 doctype html
 html
     head
-        meta( title='Bookworms: trade book with yor neighbours' )
+        meta( title='Pickabook: trade books with your neighbours' )
         meta( charset='utf-8' )
         meta( http-equiv='X-UA-Compatible', content='IE=edge' )
         meta( name='viewport', content='width=device-width, initial-scale=1.0' )
@@ -88,6 +88,7 @@ html
             div.col-xs-6
             div.col-xs-6
                 a(href="https://github.com/N0bl3") GitHub : N0ble
+        script(src="https://use.fontawesome.com/4abe6b688f.js")
         script(src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
         block scripts
