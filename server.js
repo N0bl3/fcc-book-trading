@@ -51,14 +51,17 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.get('/', routes.index);
+app.get('/login', (req, res)=>{
+  res.render('login.pug');
+})
 app.post('/login', routes.login, passport.authenticate('local-login', {
     successRedirect: '/users/me',
-    failureRedirect: '/',
+    failureRedirect: '/login',
     failureFlash: true
 }));
 app.post('/register', passport.authenticate('local-register', {
     successRedirect: '/users/me',
-    failureRedirect: '/',
+    failureRedirect: '/login',
     failureFlash: true
 }));
 app.get('/logout', routes.logout);
