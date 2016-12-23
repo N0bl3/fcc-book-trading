@@ -47,9 +47,9 @@ $(function(){
             data[elem.name] = elem.value;
         });
         $.ajax({
-            url: '/users/me',
+            url   : '/users/me',
             method: 'PUT',
-            data: data
+            data  : data
         })
         .done(function(){
             window.location.reload(true);
@@ -67,8 +67,7 @@ $(function(){
             data  : { operation: 'accept' }
         })
         .done(function(){
-                self.toggleClass('accept-trade');
-                self.text = "Accepted";
+            window.location.reload(true);
             }
         )
         .fail(function(err){
@@ -87,8 +86,7 @@ $(function(){
             data  : { operation: 'sent' }
         })
         .done(function(){
-            self.toggleClass('send-trade');
-            self.text = "Sent";
+            window.location.reload(true);
         })
         .fail(function(err){
             console.log(err);
@@ -107,8 +105,7 @@ $(function(){
             data  : { operation: 'received' }
         })
         .done(function(){
-            self.toggleClass('receive-trade');
-            self.text = "Received";
+            window.location.reload(true);
         })
         .fail(function(err){
             console.log(err);
@@ -117,7 +114,7 @@ $(function(){
     });
     $('.cancel-trade')
     .click(function(e){
-        var self   = $(this);
+        /* var self   = $(this);
         var bookId = $(this)
         .data('book');
         e.preventDefault();
@@ -132,6 +129,6 @@ $(function(){
         })
         .fail(function(err){
             console.log(err);
-        });
+         });*/
     });
 });

@@ -8,11 +8,11 @@ block content
         each book in books
             .book.col-xs-6.col-sm-4.col-md-3.col-lg-2
                 div.panel.panel-default
-                    h3 #{book.title}
+                    h3 Title : #{book.title}
                     br
-                    h4 #{book.author}
+                    h4 Author : #{book.author}
                     br
-                    |  #{book.genre || "Unknown"}
+                    |  Genre : #{book.genre || "Unknown"}
                     br
                     if user && book.owner.equals(user._id)
                         button.btn.disabled Yours
