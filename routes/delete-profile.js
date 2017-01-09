@@ -9,12 +9,19 @@ module.exports = (req, res) =>{
 
         Book.remove({ owner: user._id }, (err) =>{
             if ( err ) {
-                console.log('Deleting books error: ' + err)
+                console.log(`Deleting books error: ${err}`)
             }
             else {
-                User.remove({ username: user.username }, (err) =>{
+                User.update({ 'demands.author': user._id }, { $pull: { 'demands': { 'author': user._id } } }, (err) =>{
                     if ( err ) {
-                        console.log('Deleting user error: ' + err)
+                        console.log(`Updating demands error: ${err}`)
+                    }
+                    else {
+                        User.remove({ _id: user._id }, (err) =>{
+                            if ( err ) {
+                                console.log(`Deleting user error: ${err}`)
+                            }
+                        });
                     }
                 });
             }

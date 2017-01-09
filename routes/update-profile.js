@@ -1,6 +1,6 @@
 const User = require('../models/User');
-
-module.exports = (res, req) => {
+//Why should i look in req.req
+module.exports = (req, res) =>{
     if (req.isAuthenticated()) {
         const user = req.user;
         User.findByIdAndUpdate(user._id, {
